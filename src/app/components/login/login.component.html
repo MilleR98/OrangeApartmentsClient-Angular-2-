@@ -1,0 +1,23 @@
+
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+  <div class="modal-dialog">
+    <div class="loginmodal-container">
+      <h1>Login to existing account</h1><br>
+      <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                    <input type="text" class="form-control" name="email"  placeholder="Email"
+                           [(ngModel)]="model.email" #username="ngModel" required />
+                    <div *ngIf="f.submitted && !username.valid" class="help-block">Email is required</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                    <input type="text" class="form-control" name="password"  placeholder="Password"
+                           [(ngModel)]="model.password" #password="ngModel" required />
+                    <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+        </div>
+        <input type="submit" name="login" class="login loginmodal-submit" value="Sign in">
+      </form>
+    </div>
+  </div>
+</div>
+
+
