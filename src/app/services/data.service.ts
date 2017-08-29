@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Apartment} from './models/apartment';
+import {Apartment} from '../models/apartment';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
@@ -14,8 +14,5 @@ export class DataService {
 
 }
 
-var  Apartments : Apartment[] = [
-    { id: 1, City: 'Lviv', Street: 'Vodna', StreetNumber: 5 },
-    { id: 2, City: 'Lviv', Street: 'Masaryka', StreetNumber: 6 }
-  ];
+
 
