@@ -6,15 +6,28 @@ import {AuthGuard} from './guards/auth.guard';
 import {AppConfig} from './app.config';
 import {AuthService} from './services/auth.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http/src';
+import {AlertService} from './services/alert.service';
+import {routing} from './app.routing';
+import {AlertComponent} from './components/directives/alert.component';
+import {RegistrationComponent} from './components/registration/registration.component';
+import {LoginComponent} from './components/login/login.component';
+import {HomeComponent} from './components/home/home.component';
+import {HttpModule} from '@angular/http';
+import {NavbarComponent} from './components/directives/navbar.component';
+import {UserService} from "./services/user.service";
 
 @NgModule({
   declarations: [
     AppComponent,
-
+    HomeComponent,
+    LoginComponent,
+    RegistrationComponent,
+    AlertComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
+    routing,
     HttpModule,
     FormsModule,
     ReactiveFormsModule
@@ -23,6 +36,8 @@ import {HttpModule} from '@angular/http/src';
     AuthService,
     AppConfig,
     AuthGuard,
+    AlertService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

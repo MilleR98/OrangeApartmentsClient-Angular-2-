@@ -7,7 +7,7 @@ import {AuthService} from '../../services/auth.service';
   moduleId: module.id,
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.css']
 })
 
 export class LoginComponent implements OnInit {
@@ -22,16 +22,14 @@ export class LoginComponent implements OnInit {
     private alertService: AlertService) { }
 
   ngOnInit() {
-    // reset login status
-    this.authenticationService.logout();
 
-    // get return url from route parameters or default to '/'
+    this.authenticationService.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  login() {
+  login( email: string, password: string) {
     this.loading = true;
-    this.authenticationService.login(this.model.email, this.model.password)
+    this.authenticationService.login(email, password)
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);

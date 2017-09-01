@@ -1,30 +1,43 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import {Http, Headers, Response, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
-
 import { AppConfig } from '../app.config';
 
 @Injectable()
 export class AuthService {
+  isLoggedin = false;
+  headers: Headers;
+  options: RequestOptions;
 
-  constructor(private http: Http, private config: AppConfig) { }
+  constructor(private http: Http, private config: AppConfig) {
+    this.headers = new Headers({ 'Content-Type': 'application/json'});
+    this.options = new RequestOptions({ headers: this.headers });
+  }
 
   login(email: string, password: string) {
-    return this.http.post(this.config.apiUrl + '/account/login', { email: email, password: password })
+    const body = JSON.stringify({ 'Email': email, 'Password': password });
+    //  console.log(body);
+    return this.http.post(this.config.apiUrl + '/api/account/login', { Email: email, Password: password },
+      this.options)
       .map((response: Response) => {
-        // login successful if there's a Token token in the response
         const userToken = response.toString();
         if (userToken) {
-          // store user details and Token token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', userToken);
+          localStorage.setItem('currentUserToken', userToken);
         }
       });
   }
 
   logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUserToken');
+  }
+
+  isLoggedIn() {
+    if (localStorage.getItem('currentUserToken') == null) {
+      this.isLoggedin = false;
+      return this.isLoggedin;
+    } else {
+      return true;
+    }
   }
 }
 

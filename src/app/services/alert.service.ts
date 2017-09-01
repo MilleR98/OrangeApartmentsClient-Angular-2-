@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
-import {Session} from "selenium-webdriver";
-import {CookieXSRFStrategy} from "@angular/http";
 
 @Injectable()
 export class AlertService {
@@ -11,7 +9,7 @@ export class AlertService {
   private keepAfterNavigationChange = false;
 
   constructor(private router: Router) {
-    // clear alert message on route change
+
     router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         if (this.keepAfterNavigationChange) {

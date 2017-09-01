@@ -1,10 +1,10 @@
 
-<div class="modal fade" id="registration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="registration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
   <div class="modal-dialog">
     <div class="loginmodal-container">
       <h1>Create new account</h1><br>
       <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
           <input type="text" name="username" placeholder="Username" class="form-control"
                  [(ngModel)]="model.name" #name="ngModel" required />
           <div *ngIf="f.submitted && !name.valid" class="help-block">Name is required</div>

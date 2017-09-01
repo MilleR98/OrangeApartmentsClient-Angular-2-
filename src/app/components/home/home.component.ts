@@ -11,11 +11,11 @@ import {User} from '../../models/user';
 })
 
 export class HomeComponent implements OnInit {
-  currentUser: string;
+  currentUserToken: string;
   users: User[] = [];
 
   constructor(private userService: UserService) {
-    this.currentUser = localStorage.getItem('currentUser');
+    this.currentUserToken = localStorage.getItem('currentUserToken');
   }
 
   ngOnInit() {
@@ -23,6 +23,6 @@ export class HomeComponent implements OnInit {
   }
 
   private loadAllUsers() {
-    this.userService.getAll().subscribe(users => { this.users = users; });
+      //  this.userService.getAll().subscribe(users => { this.users = users; console.log(users); });
   }
 }

@@ -5,10 +5,10 @@ import { AlertService } from '../../services/alert.service';
 @Component({
   moduleId: module.id,
   selector: 'app-alert',
-  templateUrl: 'src/app/components/directives/alert.component.html'
+  templateUrl: './alert.component.html'
 })
 
-export class AlertComponent implements OnInit{
+export class AlertComponent implements OnInit {
   message: any;
 
   constructor(private alertService: AlertService) { }
