@@ -16,6 +16,8 @@ import {HttpModule} from '@angular/http';
 import {NavbarComponent} from './components/directives/navbar.component';
 import {UserService} from './services/user.service';
 import {SearchComponent} from './components/search/search.component';
+import {SearchItemComponent} from './components/search/search-item.component';
+import {SearchApartmentService} from './services/search-apartment.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import {SearchComponent} from './components/search/search.component';
     RegistrationComponent,
     AlertComponent,
     NavbarComponent,
-    SearchComponent
+    SearchComponent,
+    SearchItemComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import {SearchComponent} from './components/search/search.component';
     AppConfig,
     AuthGuard,
     AlertService,
-    UserService
+    UserService,
+    SearchApartmentService
   ],
   bootstrap: [AppComponent]
 })

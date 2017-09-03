@@ -1,48 +1,67 @@
-<button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+<div class="jumbotron">
+  <div class="container-fluid">
+    <div class="row">
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-6">
-            <!-- City -->
-            <div class="form-group">
-              <label for="search-input-city">City</label>
-              <input type="text" class="form-control" id="search-input-city" placeholder="Enter city">
-            </div>
-            <!-- district -->
-            <div class="form-group">
-              <label for="search-input-district">District</label>
-              <input type="text" class="form-control" id="search-input-district"  placeholder="Enter District">
-            </div>
-            <!-- street -->
-            <div class="form-group">
-              <label for="search-input-street">Street</label>
-              <input type="text" class="form-control" id="search-input-street" placeholder="Enter street">
-            </div>
-            <div class="row">
-            <!-- Ordering type selestion-->
-              <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-primary active">
-                  <input type="radio" name="options" id="option1" autocomplete="off" checked> Price
-                </label>
-                <label class="btn btn-primary">
-                  <input type="radio" name="options" id="option2" autocomplete="off"> Rating
-                </label>
-                <label class="btn btn-primary">
-                  <input type="radio" name="options" id="option3" autocomplete="off"> Date
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">some data 2</div>
+      <!-- Search criteria -->
+      <div class="col-md-6">
+        <!-- City -->
+        <div class="form-group">
+          <label for="search-input-city">City</label>
+          <input type="text" class="form-control" id="search-input-city" placeholder="Enter city" #inputCity (keyup)="this._apartmentService.city = inputCity.value" [value]="this._apartmentService.city">
         </div>
-        <div class="row">
+        <!-- district -->
+        <div class="form-group">
+          <label for="search-input-district">District</label>
+          <input type="text" class="form-control" id="search-input-district" placeholder="Enter District" #inputDistrict (keyup)="this._apartmentService.district = inputDistrict.value" [value]="this._apartmentService.district">
+        </div>
+        <!-- street -->
+        <div class="form-group">
+          <label for="search-input-street">Street</label>
+          <input type="text" class="form-control" id="search-input-street" placeholder="Enter street" #inputStreet (keyup)="this._apartmentService.street = inputStreet.value" [value]="this._apartmentService.street">
+        </div>
+        <div class="row text-center">
+          <!-- Ordering type selestion-->
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary btn-sm active" (click)="this._apartmentService.sortBy='price'">
+              <input type="radio" name="options" id="option1" autocomplete="off" >Price
+            </label>
+            <label class="btn btn-sm btn-primary" (click)="this._apartmentService.sortBy='rating'">
+              <input type="radio" name="options" id="option2" autocomplete="off" >Rating
+            </label>
+            <label class="btn btn-sm btn-primary" (click)="this._apartmentService.sortBy='date'">
+              <input type="radio" name="options" id="option3" autocomplete="off">Date
+            </label>
+          </div>
+        </div>
+      </div>
 
+      <!--List of tags-->
+      <div class="col-md-6" style="padding-top: 20px">
+        <div class="apartment-tag-list" *ngFor="let tag of this._apartmentService.tagList" style="display: inline-block; margin: 5px;">
+          <button class="btn" style="border: 1px solid; max-width: 150px; padding: 5px;"
+                  (click)="tag.isSelected=!tag.isSelected"
+                  [ngClass]="tag.isSelected ? 'btn-primary':'btn-default'">
+            <span class="glyphicon glyphicon" aria-hidden="true"
+                  [ngClass]="tag.isSelected ? 'glyphicon-check':'glyphicon-unchecked'"></span>
+            {{tag.tagname}}
+          </button>
         </div>
       </div>
     </div>
+
+    <!-- Search button -->
+    <div class="row text-center" style="margin-top: 15px">
+      <button class="btn btn-success" (click)="search()">Search</button>
+    </div>
   </div>
+</div>
+
+<div class="row">
+  <app-search-item *ngFor="let item of this._apartmentService.apartmentList" [apartment]="item"></app-search-item>
+</div>
+
+<div class="row text-center" style="margin: 15px 0px 15px" *ngIf="this._apartmentService.page>0 && this._apartmentService.lastPage < 1">
+  <button class="btn btn-success" (click)="more()">
+    <span class="glyphicon glyphicon glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+  </button>
 </div>
