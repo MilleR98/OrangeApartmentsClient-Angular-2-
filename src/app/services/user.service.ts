@@ -18,7 +18,7 @@ export class UserService {
     map((response: Response) => response.json());
   }
 
-  create(user: User) {
+  register(user: User) {
     const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded'});
     const options = new RequestOptions({ headers: headers });
     return this.http.post(this.config.apiUrl + '/api/account/register', JSON.stringify(user), options);
@@ -33,7 +33,6 @@ export class UserService {
   }
 
   private Token() {
-    // create authorization header with Token token
     const currentUser = localStorage.getItem('currentUserToken');
     if (currentUser) {
       const headers = new Headers({ 'Token': currentUser});

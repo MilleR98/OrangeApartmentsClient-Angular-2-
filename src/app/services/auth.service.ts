@@ -14,13 +14,12 @@ export class AuthService {
     this.options = new RequestOptions({ headers: this.headers });
   }
 
-  login(email: string, password: string) {
-    const body = JSON.stringify({ 'Email': email, 'Password': password });
-    //  console.log(body);
-    return this.http.post(this.config.apiUrl + '/api/account/login', { Email: email, Password: password },
+  login(model) {
+    return this.http.post(this.config.apiUrl + '/api/account/login', { Email: model.email, Password: model.password },
       this.options)
       .map((response: Response) => {
-        const userToken = response.toString();
+        console.log(response.json());
+        const userToken = response.json().toString();
         if (userToken) {
           localStorage.setItem('currentUserToken', userToken);
         }

@@ -22,14 +22,12 @@ export class LoginComponent implements OnInit {
     private alertService: AlertService) { }
 
   ngOnInit() {
-
-    this.authenticationService.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  login( email: string, password: string) {
+  login() {
     this.loading = true;
-    this.authenticationService.login(email, password)
+    this.authenticationService.login(this.model)
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);

@@ -1,6 +1,6 @@
 .navbar-login
 {
-  width: 305px;
+  width: 180px;
   padding: 10px;
   padding-bottom: 0px;
 }
@@ -15,4 +15,8 @@
 .icon-size
 {
   font-size: 87px;
+}
+
+.btn{
+  background-color: #fe7b00;
 }

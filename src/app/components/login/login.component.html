@@ -2,8 +2,11 @@
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
   <div class="modal-dialog">
     <div class="loginmodal-container">
-      <h1>Login to existing account</h1><br>
-      <form name="form" (ngSubmit)="f.form.valid && login(model.email,model.password)" #f="ngForm" novalidate>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <i class="glyphicon glyphicon-remove"></i>
+      </button>
+      <h1 class="panel-heading panel-title">Login to existing account</h1><br>
+      <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
           <input type="email" name="email" placeholder="E-mail" class="form-control"
                  [(ngModel)]="model.email" #email="ngModel" required />
@@ -14,8 +17,11 @@
                  [(ngModel)]="model.password" #password="ngModel" required />
           <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
         </div>
-        <input type="submit" name="login" class="login loginmodal-submit" value="Sign in">
-
+        <input type="submit" name="login" data-toggle="modal" class="login loginmodal-submit" value="Sign in">
+        <div class="container-border">
+          Don't have an account?
+          <a href="#" routerLink="registration" data-dismiss="modal" data-toggle="modal" data-target="#registration-modal">Sign up</a>
+        </div>
       </form>
     </div>
   </div>
