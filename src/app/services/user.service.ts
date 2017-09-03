@@ -19,9 +19,9 @@ export class UserService {
   }
 
   register(user: User) {
-    const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded'});
+    const headers = new Headers({ 'Content-Type': 'application/json'});
     const options = new RequestOptions({ headers: headers });
-    return this.http.post(this.config.apiUrl + '/api/account/register', JSON.stringify(user), options);
+    return this.http.post(this.config.apiUrl + '/api/account/register', user, options);
   }
 
   update(user: User) {

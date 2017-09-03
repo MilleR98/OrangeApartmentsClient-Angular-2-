@@ -7,9 +7,9 @@
       </button>
       <h1>Create new account</h1><br>
       <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !currentUserName.valid }">
           <input type="text" name="username" placeholder="Username" class="form-control"
-                 [(ngModel)]="model.name" #name="ngModel" required />
+                 [(ngModel)]="model.currentUserName" #name="ngModel" required />
           <div *ngIf="f.submitted && !name.valid" class="help-block">Name is required</div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
@@ -24,10 +24,10 @@
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !confirmpassword.valid }">
           <input type="password" name="confirmpassword" placeholder="Confirm password" class="form-control"
-                 [(ngModel)]="model.password" #confirmpassword="ngModel" required />
+                 [(ngModel)]="model.confirmpassword" #confirmpassword="ngModel" required />
           <div *ngIf="f.submitted && !confirmpassword.valid " class="help-block">The password and confirmation password do not match</div>
         </div>
-        <input type="tel" name="phone" placeholder="Phone number">
+        <input type="tel" [(ngModel)]="model.phonenumber" name="phone" placeholder="Phone number">
         <input type="submit" name="login" class="login loginmodal-submit" value="Sign up">
         <div class="container-border">
           Already have an account?

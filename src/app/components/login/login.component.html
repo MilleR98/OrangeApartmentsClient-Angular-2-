@@ -17,7 +17,7 @@
                  [(ngModel)]="model.password" #password="ngModel" required />
           <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
         </div>
-        <input type="submit" name="login" data-toggle="modal" class="login loginmodal-submit" value="Sign in">
+        <input type="submit" name="login" data-toggle="modal" data-target="#login-modal" class="login loginmodal-submit" value="Sign in">
         <div class="container-border">
           Don't have an account?
           <a href="#" routerLink="registration" data-dismiss="modal" data-toggle="modal" data-target="#registration-modal">Sign up</a>

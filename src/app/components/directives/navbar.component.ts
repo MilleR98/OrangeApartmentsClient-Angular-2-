@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 
 @Component({
@@ -9,7 +9,13 @@ import {AuthService} from '../../services/auth.service';
 })
 
 export class NavbarComponent {
+  constructor(private authService: AuthService) {}
 
+  getCurrentUserName(): string {
+    return localStorage.getItem('currentUserName');
+  }
+  isLoggedIn() {
+    return this.authService.isLoggedIn();
+  }
 
-  constructor(public authService: AuthService) {}
 }
