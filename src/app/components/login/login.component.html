@@ -6,25 +6,36 @@
         <i class="glyphicon glyphicon-remove"></i>
       </button>
       <h1 class="panel-heading panel-title">Login to existing account</h1><br>
-      <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-          <input type="email" name="email" placeholder="E-mail" class="form-control"
-                 [(ngModel)]="model.email" #email="ngModel" required />
-          <div *ngIf="f.submitted && !email.valid" class="help-block">E-mail is required</div>
+      <form name="form" (ngSubmit)="login(); loginForm.form.reset()" #loginForm="ngForm" novalidate>
+
+        <div class="form-group" >
+          <input  name="email" placeholder="E-mail" class="form-control loginmodal-container-input"
+                 [(ngModel)]="model.email" #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required />
+          <div *ngIf="email.errors && email.dirty" class="alert alert-danger">
+            Please enter a valid email address
+          </div>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-          <input type="password" name="password" placeholder="Password" class="form-control"
-                 [(ngModel)]="model.password" #password="ngModel" required />
-          <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+
+        <div class="form-group">
+          <input type="password" name="password" placeholder="Password" class="form-control loginmodal-container-input"
+                 [(ngModel)]="model.password" #password="ngModel" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
+          <div *ngIf="password.errors && password.dirty" class="alert alert-danger">
+            Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters
+          </div>
         </div>
-        <input type="submit" name="login" data-toggle="modal" data-target="#login-modal" class="login loginmodal-submit" value="Sign in">
+        <div class="form-group">
+          <app-alert></app-alert>
+        </div>
+        <input type="submit" name="login" [disabled]="!loginForm.form.valid"
+               data-toggle="modal" data-target="#login-modal" class="login loginmodal-submit" value="Sign in">
         <div class="container-border">
           Don't have an account?
-          <a href="#" routerLink="registration" data-dismiss="modal" data-toggle="modal" data-target="#registration-modal">Sign up</a>
+          <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#registration-modal">Sign up</a>
         </div>
       </form>
     </div>
   </div>
 </div>
+
 
 

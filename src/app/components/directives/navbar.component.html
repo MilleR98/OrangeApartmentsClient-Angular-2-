@@ -9,6 +9,10 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="">Home</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="">CreateRent</a>
+        </li>
+
       </ul>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -18,9 +22,12 @@
           <li *ngIf="!isLoggedIn()" class="nav-item">
             <a class="nav-link" routerLink="registration" data-toggle="modal" data-target="#registration-modal">Sign up</a></li>
           <li *ngIf="isLoggedIn()" class="nav-item">
-            <a class="nav-link" routerLink="rent">Rent</a></li>
+            <a class="nav-link" routerLink="rent">MyBooking</a></li>
           <li *ngIf="isLoggedIn()" class="nav-item">
-            <a class="nav-link" routerLink="messages">Messages</a></li>
+            <a class="nav-link" routerLink="messages">
+              <span class="glyphicon glyphicon-envelope"></span>
+                Messages</a>
+          </li>
           <li *ngIf="isLoggedIn()" class="dropdown">
             <a href="" class="dropdown-toggle" data-toggle="dropdown">
               <span class="glyphicon glyphicon-user"></span> 
@@ -37,7 +44,7 @@
                            routerLink="profile" da>My profile</a>
                       </p>
                       <p class="text-center">
-                        <a (click)="authService.logout()" routerLink="login" data-toggle="modal" data-target="#login-modal"
+                        <a (click)="logout()" routerLink="login" data-toggle="modal" data-dismiss="modal" data-target="#login-modal"
                            class="btn btn-info btn-block btn-sm">Logout</a>
                       </p>
                     </div>

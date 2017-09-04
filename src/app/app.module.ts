@@ -17,6 +17,8 @@ import {NavbarComponent} from './components/directives/navbar.component';
 import {UserService} from './services/user.service';
 import {ProfileComponent} from './components/profile/profile.component';
 import {FooterComponent} from './components/directives/footer.component';
+import {EditProfileComponent} from './components/edit_profile/edit_profile.component';
+import {EqualValidator} from './components/directives/equal-validator.directive';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import {FooterComponent} from './components/directives/footer.component';
     AlertComponent,
     NavbarComponent,
     ProfileComponent,
-    FooterComponent
+    FooterComponent,
+    EditProfileComponent,
+    EqualValidator
   ],
   imports: [
     BrowserModule,

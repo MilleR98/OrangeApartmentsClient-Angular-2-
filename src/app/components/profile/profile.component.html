@@ -1,3 +1,48 @@
-<br>
-<br>
-<h1>User profile</h1>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="mainbody container-fluid">
+  <div class="row">
+    <div style="padding-top:50px;"> </div>
+    <div class="col-lg-3 col-md-3 ">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="media">
+            <div align="center">
+              <img  class="avatar img-circle img-thumbnail " alt="avatar"  src="https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png" width="300px" height="300px">
+            </div>
+            <div class="media-body">
+              <hr>
+              <h3><strong>Bio</strong></h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel gravida metus, non ultrices sapien. Morbi odio metus, dapibus non nibh id amet.</p>
+              <hr><h3><strong>Phone number</strong></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-9 col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <span>
+              <h1 class="panel-title pull-left" style="font-size:30px;">{{user.name}}<legend>{{user.mail}}</legend></h1>
+              <div class="pull-right">
+                 <a  routerLink="edit" class="btn btn-primary">Edit profile</a>
+              </div>
+          </span>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="panel panel-default pn">
+          <h3><strong>Apartments </strong></h3>
+        </div>
+      </div>
+      <div class="col-md-4 cl">
+        <div class="panel panel-default pn">
+          <h3><strong>Rewiews</strong></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

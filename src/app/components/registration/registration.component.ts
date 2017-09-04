@@ -24,8 +24,7 @@ export class RegistrationComponent {
     this.userService.register(this.model)
       .subscribe(
         data => {
-          this.alertService.success('Registration successful', true);
-          this.router.navigate(['login']);
+          this.alertService.success('Registration successful', false);
         },
         error => {
           this.alertService.error(error._body);
