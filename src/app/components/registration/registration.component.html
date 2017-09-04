@@ -6,7 +6,7 @@
         <i class="glyphicon glyphicon-remove"></i>
       </button>
       <h1>Create new account</h1><br>
-      <form name="form" (ngSubmit)="register();" #registerForm="ngForm" novalidate>
+      <form name="form" (ngSubmit)="register(); registerForm.reset()" #registerForm="ngForm" novalidate>
         <div class="form-group" >
           <input name="username" placeholder="Username" class="form-control loginmodal-container-input"
                  [(ngModel)]="model.username" #name="ngModel" required pattern="[A-Za-z]{3,50}$"/>
@@ -34,11 +34,10 @@
             The password and confirmation password do not match</div>
         </div>
         <app-alert></app-alert>
-        <input type="submit" [disabled]="!registerForm.form.valid" data-dismiss="modal" data-toggle="modal" data-target="#login-modal"
-               name="login" class="login loginmodal-submit" value="Sign up">
+        <input type="submit" [disabled]="!registerForm.form.valid" name="login" class="login loginmodal-submit" value="Sign up">
         <div class="container-border">
           Already have an account?
-          <a href="#"  data-dismiss="modal" data-toggle="modal" data-target="#login-modal">Sign in</a>
+          <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#login-modal">Sign in</a>
         </div>
       </form>
     </div>
