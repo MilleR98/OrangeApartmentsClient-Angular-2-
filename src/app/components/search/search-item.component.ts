@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Apartment} from "../../models/apartment";
-import {SearchApartmentService} from "../../services/search-apartment.service";
+import {Apartment} from '../../models/apartment';
+import {SearchApartmentService} from '../../services/search-apartment.service';
 
 @Component({
   selector: 'app-search-item',
@@ -8,29 +8,79 @@ import {SearchApartmentService} from "../../services/search-apartment.service";
   styleUrls: ['./search-item.component.css']
 })
 
+/*
+ * Responsible for apartment card on search page
+ */
 export class SearchItemComponent implements OnInit  {
   @Input() apartment: Apartment;
   imageIndex: number = 0;
   maxImageIndex: number = 0;
 
-  constructor(public _apartmentService: SearchApartmentService){}
+  constructor(public _apartmentService: SearchApartmentService) {}
 
   ngOnInit() {
-    this.imageIndex = this._apartmentService.getImageIndex(this.apartment.ApartmentId);
-    this.maxImageIndex = this._apartmentService.maxImageIndex.get(this.apartment.ApartmentId);
-    console.log('image index'+ this.imageIndex + ' maximage:'+this.maxImageIndex);
-    if (this.maxImageIndex == null)
-      console.log('apart'+this.apartment.ApartmentId + ' undefinded');
+    this.maxImageIndex = this.getApartmentImageCount(this.apartment.ApartmentId);
+    this.imageIndex = this.getImageIndex(this.apartment.ApartmentId);
   }
+
+  /*
+   * Retrieves available image number
+   * Calls service method.
+   */
+  getApartmentImageCount(id: number): number {
+    const count = this._apartmentService.apartmentImageCount.get(id);
+    if (count == null) {
+      this._apartmentService.getApartmentImageCount(id).subscribe(data => this.maxImageIndex = data);
+    } else {
+      return count;
+    }
+  }
+
+  /*
+   * Stores Index of currently showed image.
+   */
+  getImageIndex(id: number): number {
+    const index = this._apartmentService.apartmentImageIndex.get(id);
+
+    if (index == null) {
+      this._apartmentService.apartmentImageIndex.set(id, 0);
+      return 0;
+    } else {
+      return index;
+    }
+  }
+
+  /*
+   * Show next image
+   */
   next() {
-    this.imageIndex++;
-    this._apartmentService.imageIndex.set(this.apartment.ApartmentId, this.imageIndex);
-    this._apartmentService.getImage(this.apartment.ApartmentId, this.imageIndex).subscribe();
+    if (this.imageIndex < this.maxImageIndex) {
+      this.imageIndex++;
+      this._apartmentService.apartmentImageIndex.set(this.apartment.ApartmentId, this.imageIndex);
+    }
   }
+
+  /*
+   * Show previous image
+   */
   previous() {
     if (this.imageIndex > 0) {
       this.imageIndex--;
-      this._apartmentService.imageIndex.set(this.apartment.ApartmentId, this.imageIndex);
+      this._apartmentService.apartmentImageIndex.set(this.apartment.ApartmentId, this.imageIndex);
     }
+  }
+
+  /*
+   * Responsible for showing/hiding previous image button
+   */
+  hasPrevImage(): boolean {
+    return this.imageIndex > 0;
+  }
+
+  /*
+   * Responsible for showing/hiding next image button
+   */
+  hasNextImage(): boolean {
+    return this.imageIndex < this.maxImageIndex - 1;
   }
 }
