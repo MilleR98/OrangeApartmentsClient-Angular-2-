@@ -93,8 +93,6 @@ export class SearchApartmentService {
     this.street === '' || this.street == null ? '' : apiQuery += '&street=' + this.street;
     this.page > 0 ? apiQuery += '&page=' + this.page.toString() : '';
 
-    console.log('API:' + this.apiUrl + apiQuery);
-
     return this.http.get(this.apiUrl + apiQuery)
       .map((resp: Response) => {
         if (resp.status === 200) {
