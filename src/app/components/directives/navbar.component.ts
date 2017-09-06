@@ -1,5 +1,6 @@
-import { Component} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -9,5 +10,21 @@ import {AuthService} from '../../services/auth.service';
 })
 
 export class NavbarComponent {
-  constructor(public authService: AuthService) {}
+	
+  constructor(private authService: AuthService, private router: Router,) {}
+
+  getCurrentUserName(): string {
+    return localStorage.getItem('currentUserName');
+  }
+  isLoggedIn() {
+    return this.authService.isLoggedIn();
+  }
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['home']);
+  }
+
+  goToMyProfile() {
+    this.router.navigate(['/profile', +localStorage.getItem('currentUserId')]);
+  }
 }

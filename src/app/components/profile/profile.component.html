@@ -1,0 +1,58 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="mainbody container-fluid">
+  <div class="row">
+    <div style="padding-top:50px;"> </div>
+    <div class="col-image col-lg-3 col-md-3 ">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="media">
+            <div align="center">
+              <img id="user-image" class="crop avatar img-circle img-thumbnail " alt="avatar"
+                    src="{{profileImageURL}}">
+            </div>
+            <div class="media-body">
+              <hr>
+              <h3><strong>About me</strong></h3>
+              <p>{{user['AboutMe']}}</p>
+              <div *ngIf="!user['AboutMe']" class="alert alert-info">
+                Write something about youself</div>
+              <hr><h3><strong>Phone number</strong></h3>
+              <p>{{user['Phone']}}</p>
+              <div *ngIf="!user['Phone']" class="alert alert-info">
+                Verify your phone number</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-inputs col-lg-9 col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <span>
+              <h1 class="panel-title pull-left" style="font-size:30px;">
+                {{user['FirstName']+" "+user['LastName']}}<legend>{{user['Mail']}}</legend></h1>
+              <div *ngIf="isCurrentUser" class="pull-right">
+                 <a  routerLink="edit" class="btn btn-primary">Edit profile</a>
+              </div>
+                <div *ngIf="!isCurrentUser" class="pull-right">
+                 <a  routerLink="message" class="btn btn-success">Message</a>
+              </div>
+          </span>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-cardlist col-md-4">
+        <div class="panel panel-default pn">
+          <h3><strong>Apartments </strong></h3>
+        </div>
+      </div>
+      <div class="col-cardlist col-md-4 cl">
+        <div class="panel panel-default pn">
+          <h3><strong>Rewiews</strong></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

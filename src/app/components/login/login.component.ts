@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {AlertService} from '../../services/alert.service';
 import {AuthService} from '../../services/auth.service';
+declare let $: any;
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   moduleId: module.id,
@@ -14,6 +16,7 @@ export class LoginComponent implements OnInit {
   model: any = {};
   loading = false;
   returnUrl: string;
+  isSuccess: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,20 +25,23 @@ export class LoginComponent implements OnInit {
     private alertService: AlertService) { }
 
   ngOnInit() {
-    this.authenticationService.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.isSuccess = true;
   }
 
-  login( email: string, password: string) {
+  login() {
     this.loading = true;
-    this.authenticationService.login(email, password)
+    this.authenticationService.login(this.model)
       .subscribe(
         data => {
+          this.isSuccess = true;
           this.router.navigate([this.returnUrl]);
+          $('#login-modal').modal('hide');
         },
         error => {
-          this.alertService.error(error._body);
+          this.alertService.error(error._body, false);
           this.loading = false;
+          this.isSuccess = false;
         });
   }
 }

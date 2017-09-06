@@ -2,30 +2,52 @@
 <div class="modal fade" id="registration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
   <div class="modal-dialog">
     <div class="loginmodal-container">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <i class="glyphicon glyphicon-remove"></i>
+      </button>
       <h1>Create new account</h1><br>
-      <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
-          <input type="text" name="username" placeholder="Username" class="form-control"
-                 [(ngModel)]="model.name" #name="ngModel" required />
-          <div *ngIf="f.submitted && !name.valid" class="help-block">Name is required</div>
+      <form name="form" (ngSubmit)="register();" #registerForm="ngForm" novalidate>
+        <div class="form-group" >
+          <input name="firstname" placeholder="First Name" class="form-control loginmodal-container-input"
+                 [(ngModel)]="model.firstname" #firstname="ngModel" required pattern="[A-Za-z]{2,20}$"/>
+          <div *ngIf="firstname.errors && firstname.dirty" class="alert alert-danger">
+            First Name must contain at least 2 to 20 letters</div>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-          <input type="email" name="email" placeholder="E-mail" class="form-control"
-                 [(ngModel)]="model.email" #email="ngModel" required />
-          <div *ngIf="f.submitted && !email.valid" class="help-block">E-mail is required</div>
+
+        <div class="form-group" >
+          <input name="lastname" placeholder="Last Name" class="form-control loginmodal-container-input"
+                 [(ngModel)]="model.lastname" #lastname="ngModel" required pattern="[A-Za-z]{2,30}$"/>
+          <div *ngIf="lastname.errors && lastname.dirty" class="alert alert-danger">
+            Last Name must contain at least 2 to 30 letters</div>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-          <input type="password" name="password" placeholder="Password" class="form-control"
-                 [(ngModel)]="model.password" #password="ngModel" required />
-          <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+        <div class="form-group" >
+          <input type="email" name="email" placeholder="E-mail" class="form-control loginmodal-container-input"
+                 [(ngModel)]="model.email" #email="ngModel" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
+          <div *ngIf="email.errors && email.dirty" class="alert alert-danger">
+            Please enter a valid email address
+          </div>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !confirmpassword.valid }">
-          <input type="password" name="confirmpassword" placeholder="Confirm password" class="form-control"
-                 [(ngModel)]="model.password" #confirmpassword="ngModel" required />
-          <div *ngIf="f.submitted && !confirmpassword.valid " class="help-block">The password and confirmation password do not match</div>
+        <div class="form-group" >
+          <input type="password" name="password" placeholder="Password" class="form-control loginmodal-container-input"
+                 [(ngModel)]="model.password" #password="ngModel" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
+          <div *ngIf="password.errors && password.dirty" class="alert alert-danger">
+            Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters
+          </div>
         </div>
-        <input type="tel" name="phone" placeholder="Phone number">
-        <input type="submit" name="login" class="login loginmodal-submit" value="Sign up">
+        <div class="form-group" >
+          <input type="password" name="confirmpassword" placeholder="Confirm password" class="form-control loginmodal-container-input"
+                 [(ngModel)]="model.confirmpassword" #confirmpassword="ngModel" required validateEqual="password" reverse="false" />
+          <div *ngIf="confirmpassword.errors && confirmpassword.dirty" class="alert alert-danger">
+            The password and confirmation password do not match</div>
+        </div>
+        <div *ngIf="!isSuccess" class="form-group alert alert-danger">
+          This email address is already in use by another account
+        </div>
+        <input type="submit" [disabled]="!registerForm.form.valid" name="login" class="login loginmodal-submit" value="Sign up">
+        <div class="container-border">
+          Already have an account?
+          <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#login-modal">Sign in</a>
+        </div>
       </form>
     </div>
   </div>

@@ -1,0 +1,33 @@
+.mainbody {
+  background:#f0f0f0;
+}
+
+body {
+  background-color: #e8e8e8;
+}
+
+h3{
+  text-align: center;
+}
+
+.crop{
+  width: 300px;
+  height: 300px;
+  background-position: center;
+  object-fit: cover;
+}
+
+.col-image{
+  width: 27%!important;
+}
+
+.col-inputs{
+  width: 73%!important;
+}
+
+.col-cardlist{
+  width: 35.5%!important;
+}
+
+
+

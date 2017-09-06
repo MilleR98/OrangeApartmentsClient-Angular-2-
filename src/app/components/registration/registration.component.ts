@@ -1,7 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import {AlertService} from '../../services/alert.service';
+declare let $: any;
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   moduleId: module.id,
@@ -10,26 +12,35 @@ import {AlertService} from '../../services/alert.service';
   styleUrls: ['./registration.component.css'],
 })
 
-export class RegistrationComponent {
+export class RegistrationComponent implements OnInit {
+
   model: any = {};
   loading = false;
+  isSuccess: boolean;
 
   constructor(
     private router: Router,
     private userService: UserService,
     private alertService: AlertService) { }
 
+  ngOnInit(): void {
+    this.isSuccess = true;
+  }
+
   register() {
     this.loading = true;
-    this.userService.create(this.model)
+
+    this.userService.register(this.model)
       .subscribe(
         data => {
-          this.alertService.success('Registration successful', true);
-          this.router.navigate(['/login']);
+          this.isSuccess = true;
+          $('#registration-modal').modal('hide');
+          $('#login-modal').modal('show');
         },
         error => {
           this.alertService.error(error._body);
           this.loading = false;
+          this.isSuccess = false;
         });
   }
 }

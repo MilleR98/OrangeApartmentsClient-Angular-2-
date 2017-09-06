@@ -1,39 +1,53 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-
+import {Http, Headers, RequestOptions, Response, ResponseContentType} from '@angular/http';
 import { AppConfig } from '../app.config';
-import { User } from '../models/user';
+import {Observable} from 'rxjs/Rx';
+import {DomSanitizer} from '@angular/platform-browser';
+
+
 
 @Injectable()
 export class UserService {
-  constructor(private http: Http, private config: AppConfig) { }
+  constructor(private http: Http, private config: AppConfig, private sanitizer: DomSanitizer) { }
 
-  getAll() {
-    return this.http.get(this.config.apiUrl + '/user/', this.Token()).
-    map((response: Response) => response.json());
+  getUserInfo(_id: number): Observable<any> {
+    return this.http.get(this.config.apiUrl + '/api/user/profile/' + _id);
   }
 
-  getById(_id: number) {
-    return this.http.get(this.config.apiUrl + '/user/' + _id, this.Token()).
-    map((response: Response) => response.json());
+  changePassword(model) {
+    return this.http.post(this.config.apiUrl + '/api/account/change-pass',
+      {'oldpassword': model.oldpassword, 'newpassword': model.newpassword, 'confirmpassword': model.confirmpassword },
+      this.Token()).map((response: Response) => response.json());
   }
 
-  create(user: User) {
-    const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded'});
+  changeEmail(model) {
+    return this.http.post(this.config.apiUrl + '/api/account/change-email',
+      {'currentpassword': model.CurrentPassword, 'newemail': model.NewEmail},
+      this.Token()).map((response: Response) => response.json());
+  }
+
+  register(user) {
+    const headers = new Headers({ 'Content-Type': 'application/json'});
     const options = new RequestOptions({ headers: headers });
-    return this.http.post(this.config.apiUrl + '/api/account/register', JSON.stringify(user), options);
+    return this.http.post(this.config.apiUrl + '/api/account/register', user, options).
+    map((response: Response) => response.json());
   }
 
-  update(user: User) {
-    return this.http.put(this.config.apiUrl + '/user/' + user.id, user, this.Token());
+  updateCurrentUser(id, user) {
+    return this.http.put(this.config.apiUrl + '/api/account/change-info/' + id, user, this.Token()).
+    map((response: Response) => {response.json(); });
   }
 
-  delete(_id: number) {
-    return this.http.delete(this.config.apiUrl + '/user/' + _id, this.Token());
+  uploadUserProfileImage(image, id) {
+    const formData: FormData = new FormData();
+    formData.append('image', image, image.name);
+      return this.http.post(this.config.apiUrl + '/api/user/' + id + '/SaveImg', formData, this.Token())
+        .map(res => res.json())
+        .catch(error => Observable.throw(error));
   }
+
 
   private Token() {
-    // create authorization header with Token token
     const currentUser = localStorage.getItem('currentUserToken');
     if (currentUser) {
       const headers = new Headers({ 'Token': currentUser});

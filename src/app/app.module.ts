@@ -15,9 +15,17 @@ import {HomeComponent} from './components/home/home.component';
 import {HttpModule} from '@angular/http';
 import {NavbarComponent} from './components/directives/navbar.component';
 import {UserService} from './services/user.service';
+<<<<<<< HEAD
 import {SearchComponent} from './components/search/search.component';
 import {SearchItemComponent} from './components/search/search-item.component';
 import {SearchApartmentService} from './services/search-apartment.service';
+=======
+import {ProfileComponent} from './components/profile/profile.component';
+import {FooterComponent} from './components/directives/footer.component';
+import {EditProfileComponent} from './components/edit_profile/edit_profile.component';
+import {EqualValidator} from './components/directives/equal-validator.directive';
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+>>>>>>> dev/user_profile_and_account
 
 @NgModule({
   declarations: [
@@ -28,7 +36,11 @@ import {SearchApartmentService} from './services/search-apartment.service';
     AlertComponent,
     NavbarComponent,
     SearchComponent,
-    SearchItemComponent
+    SearchItemComponent,
+    ProfileComponent,
+    FooterComponent,
+    EditProfileComponent,
+    EqualValidator
   ],
   imports: [
     BrowserModule,
@@ -43,8 +55,13 @@ import {SearchApartmentService} from './services/search-apartment.service';
     AuthGuard,
     AlertService,
     UserService,
+<<<<<<< HEAD
     SearchApartmentService
+=======
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
+>>>>>>> dev/user_profile_and_account
   ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

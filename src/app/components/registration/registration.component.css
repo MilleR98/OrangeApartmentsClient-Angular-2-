@@ -1,6 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 
-/****** LOGIN MODAL ******/
 .loginmodal-container {
   padding: 30px;
   max-width: 350px;
@@ -26,7 +25,7 @@
   position: relative;
 }
 
-.loginmodal-container input[type=text], input[type=password],input[type=email],input[type=tel]{
+.loginmodal-container-input{
   height: 44px;
   font-size: 16px;
   width: 100%;
@@ -93,4 +92,19 @@
 
 .login-help{
   font-size: 12px;
+}
+
+.container-border{
+  text-align: center;
+  border-top: 1px solid#888;
+  margin-top: 15px;
+  padding-top:15px;
+  font-size:90%;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 4px solid #42A948;
+}
+.ng-invalid:not(form)  {
+  border-left: 4px solid #a94442;
 }

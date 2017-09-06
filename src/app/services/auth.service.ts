@@ -3,32 +3,37 @@ import {Http, Headers, Response, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { AppConfig } from '../app.config';
 
+
 @Injectable()
 export class AuthService {
-  isLoggedin = false;
-  headers: Headers;
-  options: RequestOptions;
+  private isLoggedin = false;
+  private headers: Headers;
+  private options: RequestOptions;
 
   constructor(private http: Http, private config: AppConfig) {
     this.headers = new Headers({ 'Content-Type': 'application/json'});
     this.options = new RequestOptions({ headers: this.headers });
   }
 
-  login(email: string, password: string) {
-    const body = JSON.stringify({ 'Email': email, 'Password': password });
-    //  console.log(body);
-    return this.http.post(this.config.apiUrl + '/api/account/login', { Email: email, Password: password },
+  login(model) {
+    return this.http.post(this.config.apiUrl + '/api/account/login', { Email: model.email, Password: model.password },
       this.options)
       .map((response: Response) => {
-        const userToken = response.toString();
-        if (userToken) {
-          localStorage.setItem('currentUserToken', userToken);
+        const responseStrings = response.json().toString().split('&');
+        if (responseStrings) {
+          localStorage.setItem('currentUserToken', responseStrings[0]);
+          localStorage.setItem('currentUserName', responseStrings[1] + ' ' + responseStrings[2]);
+          localStorage.setItem('currentUserId', responseStrings[3]);
         }
       });
   }
 
   logout() {
+    this.http.post(this.config.apiUrl + '/api/account/logout', '',
+      {headers: new Headers({ 'Token': localStorage.getItem('currentUserToken')})});
     localStorage.removeItem('currentUserToken');
+    localStorage.removeItem('currentUserName');
+    localStorage.removeItem('currentUserId');
   }
 
   isLoggedIn() {

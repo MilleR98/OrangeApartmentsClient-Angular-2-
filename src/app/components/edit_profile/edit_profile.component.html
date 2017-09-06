@@ -1,0 +1,143 @@
+<div class="container" style="padding-top: 60px;">
+  <div class="r">
+    <h1 class="page-header"><span (click)="backToProfile()" class="glyphicon glyphicon-chevron-left"></span>Edit Profile</h1>
+  </div>
+  <div class="row">
+    <!-- picture column -->
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="text-center">
+        <img id="user-image" src="{{profileImageURL}}" class="crop avatar img-circle img-thumbnail" alt="avatar">
+        <h6>Upload a different photo...</h6>
+        <div class="upload-btn-wrapper">
+          <button type="button" id="btnup" class="btn btn-primary">Browse for your photo!</button>
+          <input id="image-upload" (change)="uploadUserProfileImage($event)" accept="image/jpeg,image/png,image/gif,image/jpg"
+                 type="file" class="text-center center-block well well-sm">
+        </div>
+      </div>
+      <div *ngIf="responsePhotoChange">
+        <app-alert></app-alert>
+      </div>
+    </div>
+    <!-- edit personal info form column -->
+    <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+      <h3>Personal info</h3>
+      <form class="form-horizontal" name="form" (ngSubmit)="updateInfo();" #updateInfoForm="ngForm" >
+        <div class="form-group">
+          <label class="col-md-3 control-label">First Name:</label>
+          <div class="col-md-8">
+            <input name="firstname" [(ngModel)]="modelInfo.FirstName" #FirstName="ngModel" class="form-control"
+                   required pattern="[A-Za-z]{2,20}$">
+            <div *ngIf="FirstName.errors && FirstName.dirty" class="alert alert-danger">
+              First Name must contain at least 2 to 20 letters</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Last Name:</label>
+          <div class="col-md-8">
+            <input name="lastname" [(ngModel)]="modelInfo.LastName" #LastName="ngModel" class="form-control"
+                   required pattern="[A-Za-z]{2,30}$">
+            <div *ngIf="LastName.errors && LastName.dirty" class="alert alert-danger">
+              First Name must contain at least 2 to 20 letters</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Phone number:</label>
+          <div class="col-lg-8">
+            <input name="phone" [(ngModel)]="modelInfo.Phone" #PhoneNumber="ngModel" class="form-control" value="" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">About me:</label>
+          <div class="col-md-8">
+            <textarea name="aboutme" [(ngModel)]="modelInfo.AboutMe" #AboutMe="ngModel" class="form-control" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label"></label>
+          <div class="col-md-8">
+            <input [disabled]="!updateInfoForm.form.valid" class="btn btn-primary" value="Save" type="submit">
+            <div *ngIf="responseInfoChangeShow">
+              <app-alert></app-alert>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- change email form column -->
+      <form class="form-horizontal" name="form" (ngSubmit)="changeEmail();" #changeEmailForm="ngForm" >
+        <h3>Change email</h3>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Current password:</label>
+          <div class="col-md-8">
+            <input name="currentpass" [(ngModel)]="modelEmail.CurrentPassword" #CurrentPassword="ngModel" class="form-control"
+                   type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
+            <div *ngIf="CurrentPassword.errors && CurrentPassword.dirty" class="alert alert-danger">
+              Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">New email:</label>
+          <div class="col-lg-8">
+            <input name="newemail" type="email" [(ngModel)]="modelEmail.NewEmail" #NewEmail="ngModel"
+                   class="form-control" value="" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+            <div *ngIf="NewEmail.errors && NewEmail.dirty" class="alert alert-danger">
+              Please enter a valid email address
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input class="btn btn-primary" value="Change" type="submit">
+            <div *ngIf="responseEmailChangeShow">
+              <app-alert></app-alert>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- change password form column -->
+      <form class="form-horizontal" name="form" (ngSubmit)="changePassword();" #changePassForm="ngForm" >
+        <h3>Change password</h3>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Old password:</label>
+          <div class="col-md-8">
+            <input name="oldpass" [(ngModel)]="modelPass.OldPassword" #OldPassword="ngModel" class="form-control" value=""
+                   type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
+            <div *ngIf="OldPassword.errors && OldPassword.dirty" class="alert alert-danger">
+              Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">New password:</label>
+          <div class="col-md-8">
+            <input name="newpass" [(ngModel)]="modelPass.NewPassword" #NewPassword="ngModel" class="form-control" value=""
+                   type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
+            <div *ngIf="NewPassword.errors && NewPassword.dirty" class="alert alert-danger">
+              Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Confirm password:</label>
+          <div class="col-md-8">
+            <input name="confirmpass" [(ngModel)]="modelPass.ConfirmPassword" #ConfirmPassword="ngModel" class="form-control" value=""
+                   type="password" required validateEqual="password" reverse="false" />
+            <div *ngIf="ConfirmPassword.errors && ConfirmPassword.dirty" class="alert alert-danger">
+              The password and confirmation password do not match</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input  class="btn btn-primary" value="Reset password" type="submit">
+            <div *ngIf="responsePassChangeShow">
+              <app-alert></app-alert>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
