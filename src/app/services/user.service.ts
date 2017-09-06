@@ -3,54 +3,39 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { AppConfig } from '../app.config';
 import { User } from '../models/user';
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 
 @Injectable()
 export class UserService {
   constructor(private http: Http, private config: AppConfig) { }
 
-  getAll() {
-    return this.http.get(this.config.apiUrl + '/user/', this.Token());
-  }
-
-  getById(_id: number) {
-    return this.http.get(this.config.apiUrl + '/user/' + _id, this.Token());
-  }
-
-  getCurrentUser() {
-    return this.http.get(this.config.apiUrl + '/api/account/user-info' , this.Token()).map((res: Response) => {
-      return <any>res.json();
-    });
+  getUserInfo(_id: number): Observable<any> {
+    return this.http.get(this.config.apiUrl + '/api/user/profile/' + _id);
   }
 
   changePassword(model) {
-    return this.http.post(this.config.apiUrl + '/api/account/register',
+    return this.http.post(this.config.apiUrl + '/api/account/change-pass',
       {'oldpassword': model.oldpassword, 'newpassword': model.newpassword, 'confirmpassword': model.confirmpassword },
       this.Token()).map((response: Response) => response.json());
   }
 
   changeEmail(model) {
-    return this.http.post(this.config.apiUrl + '/api/account/register',
-      {'currentpassword': model.currentpassword, 'newemail': model.newemail},
+    return this.http.post(this.config.apiUrl + '/api/account/change-email',
+      {'currentpassword': model.CurrentPassword, 'newemail': model.NewEmail},
       this.Token()).map((response: Response) => response.json());
   }
 
-  register(user: User) {
+  register(user) {
     const headers = new Headers({ 'Content-Type': 'application/json'});
     const options = new RequestOptions({ headers: headers });
     return this.http.post(this.config.apiUrl + '/api/account/register', user, options).
     map((response: Response) => response.json());
   }
 
-  update(user: User) {
-    return this.http.put(this.config.apiUrl + '/user/' + user.id, user, this.Token()).
-    map((response: Response) => response.json());
-  }
-
-  delete(_id: number) {
-    return this.http.delete(this.config.apiUrl + '/user/' + _id, this.Token()).
-    map((response: Response) => response.json());
+  updateCurrentUser(id, user) {
+    return this.http.put(this.config.apiUrl + '/api/account/change-info/' + id, user, this.Token()).
+    map((response: Response) => {response.json(); console.log(response); });
   }
 
   private Token() {

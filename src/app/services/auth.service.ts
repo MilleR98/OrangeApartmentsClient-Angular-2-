@@ -22,8 +22,8 @@ export class AuthService {
         const responseStrings = response.json().toString().split('&');
         if (responseStrings) {
           localStorage.setItem('currentUserToken', responseStrings[0]);
-          localStorage.setItem('currentUserName', responseStrings[1]);
-          localStorage.setItem('currentUserId', responseStrings[2]);
+          localStorage.setItem('currentUserName', responseStrings[1] + ' ' + responseStrings[2]);
+          localStorage.setItem('currentUserId', responseStrings[3]);
         }
       });
   }

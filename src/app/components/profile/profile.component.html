@@ -7,13 +7,19 @@
         <div class="panel-body">
           <div class="media">
             <div align="center">
-              <img  class="avatar img-circle img-thumbnail " alt="avatar"  src="https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png" width="300px" height="300px">
+              <img  class="avatar img-circle img-thumbnail " alt="avatar"
+                    src="https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png" width="300px" height="300px">
             </div>
             <div class="media-body">
               <hr>
-              <h3><strong>Bio</strong></h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel gravida metus, non ultrices sapien. Morbi odio metus, dapibus non nibh id amet.</p>
+              <h3><strong>About me</strong></h3>
+              <p>{{user['AboutMe']}}</p>
+              <div *ngIf="!user['AboutMe']" class="alert alert-info">
+                Write something about youself</div>
               <hr><h3><strong>Phone number</strong></h3>
+              <p>{{user['Phone']}}</p>
+              <div *ngIf="!user['Phone']" class="alert alert-info">
+                Verify your phone number</div>
             </div>
           </div>
         </div>
@@ -23,9 +29,13 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <span>
-              <h1 class="panel-title pull-left" style="font-size:30px;">{{user.name}}<legend>{{user.mail}}</legend></h1>
-              <div class="pull-right">
+              <h1 class="panel-title pull-left" style="font-size:30px;">
+                {{user['FirstName']+" "+user['LastName']}}<legend>{{user['Mail']}}</legend></h1>
+              <div *ngIf="isCurrentUser" class="pull-right">
                  <a  routerLink="edit" class="btn btn-primary">Edit profile</a>
+              </div>
+                <div *ngIf="!isCurrentUser" class="pull-right">
+                 <a  routerLink="message" class="btn btn-success">Message</a>
               </div>
           </span>
         </div>

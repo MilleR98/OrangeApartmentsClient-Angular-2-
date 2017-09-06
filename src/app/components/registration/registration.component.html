@@ -8,10 +8,17 @@
       <h1>Create new account</h1><br>
       <form name="form" (ngSubmit)="register(); registerForm.reset()" #registerForm="ngForm" novalidate>
         <div class="form-group" >
-          <input name="username" placeholder="Username" class="form-control loginmodal-container-input"
-                 [(ngModel)]="model.username" #name="ngModel" required pattern="[A-Za-z]{3,50}$"/>
-          <div *ngIf="name.errors && name.dirty" class="alert alert-danger">
-            Name must contain at least 3 to 50 letters</div>
+          <input name="firstname" placeholder="First Name" class="form-control loginmodal-container-input"
+                 [(ngModel)]="model.firstname" #firstname="ngModel" required pattern="[A-Za-z]{2,20}$"/>
+          <div *ngIf="firstname.errors && firstname.dirty" class="alert alert-danger">
+            First Name must contain at least 2 to 20 letters</div>
+        </div>
+
+        <div class="form-group" >
+          <input name="lastname" placeholder="Last Name" class="form-control loginmodal-container-input"
+                 [(ngModel)]="model.lastname" #lastname="ngModel" required pattern="[A-Za-z]{2,30}$"/>
+          <div *ngIf="lastname.errors && lastname.dirty" class="alert alert-danger">
+            Last Name must contain at least 2 to 30 letters</div>
         </div>
         <div class="form-group" >
           <input type="email" name="email" placeholder="E-mail" class="form-control loginmodal-container-input"
@@ -33,7 +40,9 @@
           <div *ngIf="confirmpassword.errors && confirmpassword.dirty" class="alert alert-danger">
             The password and confirmation password do not match</div>
         </div>
-        <app-alert></app-alert>
+        <div  class="form-group">
+          <app-alert></app-alert>
+        </div>
         <input type="submit" [disabled]="!registerForm.form.valid" name="login" class="login loginmodal-submit" value="Sign up">
         <div class="container-border">
           Already have an account?

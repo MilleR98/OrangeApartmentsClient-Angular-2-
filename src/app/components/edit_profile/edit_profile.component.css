@@ -1,3 +1,13 @@
 textarea{
   resize: vertical;
 }
+
+.glyphicon {
+  top: 3px;
+  margin-right: 5px;
+}
+
+.glyphicon:hover{
+  color: #337ab7;
+}
+

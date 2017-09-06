@@ -1,5 +1,6 @@
 import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -9,7 +10,7 @@ import {AuthService} from '../../services/auth.service';
 })
 
 export class NavbarComponent {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router,) {}
 
   getCurrentUserName(): string {
     return localStorage.getItem('currentUserName');
@@ -19,6 +20,10 @@ export class NavbarComponent {
   }
   logout() {
     this.authService.logout();
+    this.router.navigate(['home']);
   }
 
+  goToMyProfile() {
+    this.router.navigate(['/profile', +localStorage.getItem('currentUserId')]);
+  }
 }

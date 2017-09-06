@@ -1,7 +1,7 @@
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
-import {User} from '../../models/user';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -10,12 +10,29 @@ import {User} from '../../models/user';
   styleUrls: ['profile.component.css'],
 })
 
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   user = {};
-  constructor(private userService: UserService) {}
+  id: number;
+  private sub: any;
+  isCurrentUser: boolean;
+
+  constructor(private userService: UserService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    console.log(this.userService.getCurrentUser());
-    console.log(this.user);
+    this.isCurrentUser = false;
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id'];
+      if (this.id === +localStorage.getItem('currentUserId')){
+        this.isCurrentUser = true;
+      }
+      this.userService.getUserInfo(this.id).subscribe((resp: Response) => {
+        this.user = resp.json();
+      });
+    });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+    this.user = {};
   }
 }
