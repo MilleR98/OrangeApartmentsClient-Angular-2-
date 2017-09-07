@@ -8,15 +8,15 @@ import {DomSanitizer} from '@angular/platform-browser';
 
 @Injectable()
 export class UserService {
-  constructor(private http: Http, private config: AppConfig, private sanitizer: DomSanitizer) { }
+  constructor(private http: Http, private config: AppConfig) { }
 
   getUserInfo(_id: number): Observable<any> {
-    return this.http.get(this.config.apiUrl + '/api/user/profile/' + _id);
+    return this.http.get(this.config.apiUrl + '/api/user/' + _id);
   }
 
   changePassword(model) {
     return this.http.post(this.config.apiUrl + '/api/account/change-pass',
-      {'oldpassword': model.oldpassword, 'newpassword': model.newpassword, 'confirmpassword': model.confirmpassword },
+      {'oldpassword': model.OldPassword, 'newpassword': model.NewPassword, 'confirmpassword': model.ConfirmPassword },
       this.Token()).map((response: Response) => response.json());
   }
 
