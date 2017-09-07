@@ -13,30 +13,15 @@ import { Router } from '@angular/router';
 
 export class AddApartmentComponent implements OnInit {
   model = new Apartment;
-  aTitle: string;
-  aCity: string;
-  aDistrict: string;
-  aStreet: string;
-  aBuildingNumber: string;
-  aFloor: number;
-  aBedrooms: number;
-  aSleepingPlaces: number;
-  aSquare: number;
-  aDescription: string;
   isApartmentCreated: boolean;
   aTags: ApartmentTag[];
-
-  constructor(private _apartmentCreateService: ApartmentCreationService, 
-                public _apartmentService: SearchApartmentService, 
+  apartmentId: number = 0;
+  constructor(private _apartmentCreateService: ApartmentCreationService,
+                public _apartmentService: SearchApartmentService,
                 private router: Router) {}
 
   ngOnInit() {
     this.isApartmentCreated = true;
-    this.model.FloorNumber = 4;
-    this.model.City = "Lviv";
-    this.model.Price = 555;
-    this.model.Street = "Vodna";
-    this.model.StreetNumber = "5A";
     this.aTags = [];
   }
 
@@ -54,9 +39,13 @@ export class AddApartmentComponent implements OnInit {
     this.isApartmentCreated = true;
     this._apartmentCreateService.createApartment(this.model).subscribe(data => {
       if (data.status === 201) {
-         this.router.navigate(['search']);
+          this.apartmentId = data.json().ApartmentId;
       }
     });
+  }
+
+  imageURL() {
+    return 'http://localhost:52215/api/apartment/' + this.apartmentId.toString() + '/SaveImg';
   }
 
   getmodel() {

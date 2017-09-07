@@ -1,5 +1,6 @@
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
+import {ImageUploadModule} from 'angular2-image-upload';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {AuthGuard} from './guards/auth.guard';
@@ -49,6 +50,7 @@ import {ApartmentViewComponent} from './components/apartment-view/apartment-view
     routing,
     HttpModule,
     FormsModule,
+    ImageUploadModule.forRoot(),
     ReactiveFormsModule
   ],
   providers: [

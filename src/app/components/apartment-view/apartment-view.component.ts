@@ -61,7 +61,6 @@ export class ApartmentViewComponent implements OnInit {
           apart.Comment = this.coment.Comment;
           apart.CommentDate = data.json().CommentDate;
           this.coments.push(apart);
-          console.log('comment added');
         }
       });
   }
