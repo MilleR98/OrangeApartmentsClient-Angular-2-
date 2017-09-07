@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {AlertService} from '../../services/alert.service';
 import {AuthService} from '../../services/auth.service';
+declare let $: any;
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   moduleId: module.id,
@@ -27,10 +29,22 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loading = true;
+    console.log(this.model);
+    const key = CryptoJS.enc.Base64.parse('HackersSeeIT2');
+    const iv  = CryptoJS.enc.Base64.parse('#base64IV#');
+    const encrypted = CryptoJS.AES.encrypt(this.model.password, key, {iv: iv});
+
+    const secureUsercreds = {
+      email: this.model.email,
+      password: encrypted.toString()
+    };
+
+    console.log(secureUsercreds);
     this.authenticationService.login(this.model)
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);
+          $('#login-modal').modal('hide');
         },
         error => {
           this.alertService.error(error._body);

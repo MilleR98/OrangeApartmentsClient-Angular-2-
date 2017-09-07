@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-
+import {Http, Headers, RequestOptions, Response, ResponseContentType} from '@angular/http';
 import { AppConfig } from '../app.config';
-import { User } from '../models/user';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/Rx';
+import {DomSanitizer} from '@angular/platform-browser';
+
 
 
 @Injectable()
 export class UserService {
-  constructor(private http: Http, private config: AppConfig) { }
+  constructor(private http: Http, private config: AppConfig, private sanitizer: DomSanitizer) { }
 
   getUserInfo(_id: number): Observable<any> {
     return this.http.get(this.config.apiUrl + '/api/user/profile/' + _id);
@@ -37,6 +37,15 @@ export class UserService {
     return this.http.put(this.config.apiUrl + '/api/account/change-info/' + id, user, this.Token()).
     map((response: Response) => {response.json(); console.log(response); });
   }
+
+  uploadUserProfileImage(image, id) {
+    const formData: FormData = new FormData();
+    formData.append('image', image, image.name);
+      return this.http.post(this.config.apiUrl + '/api/user/' + id + '/SaveImg', formData, this.Token())
+        .map(res => res.json())
+        .catch(error => Observable.throw(error));
+  }
+
 
   private Token() {
     const currentUser = localStorage.getItem('currentUserToken');

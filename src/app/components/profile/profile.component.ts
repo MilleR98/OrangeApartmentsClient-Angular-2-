@@ -1,8 +1,7 @@
-
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {ActivatedRoute} from '@angular/router';
-
+declare let $: any;
 @Component({
   moduleId: module.id,
   selector: 'app-profile',
@@ -11,6 +10,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 
 export class ProfileComponent implements OnInit, OnDestroy {
+  profileImageURL;
   user = {};
   id: number;
   private sub: any;
@@ -22,13 +22,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.isCurrentUser = false;
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
-      if (this.id === +localStorage.getItem('currentUserId')){
+      if (this.id === +localStorage.getItem('currentUserId')) {
         this.isCurrentUser = true;
       }
       this.userService.getUserInfo(this.id).subscribe((resp: Response) => {
         this.user = resp.json();
+        this.profileImageURL = 'http://localhost:52215/api/user/' + this.user['UserId'] + '/getimg?nocache=' + this.junk();
       });
     });
+  }
+
+  junk() {
+    return (new Date()).getTime() + Math.round(Math.random());
   }
 
   ngOnDestroy() {

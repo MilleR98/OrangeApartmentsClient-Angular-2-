@@ -2,6 +2,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {AlertService} from '../../services/alert.service';
+import {Router} from '@angular/router';
+declare let $: any;
 
 @Component({
   moduleId: module.id,
@@ -11,15 +13,18 @@ import {AlertService} from '../../services/alert.service';
 })
 
 export class EditProfileComponent implements OnInit {
+  profileImageURL;
   modelInfo: any = {};
   modelEmail: any = {};
   modelPass: any = {};
   responseInfoChangeShow: boolean;
   responseEmailChangeShow: boolean;
   responsePassChangeShow: boolean;
-  constructor(private userService: UserService, private alertService: AlertService) {}
+  constructor(private userService: UserService, private alertService: AlertService, private route: Router) {}
 
   ngOnInit(): void {
+    this.profileImageURL =
+      'http://localhost:52215/api/user/' + localStorage.getItem('currentUserId') + '/getimg?nocache=' + this.junk();
     this.userService.getUserInfo(+localStorage.getItem('currentUserId')).subscribe((resp: Response) => {
       this.modelInfo = resp.json();
       console.log(this.modelInfo);
@@ -66,5 +71,25 @@ export class EditProfileComponent implements OnInit {
       error => {
         this.alertService.error(error._body);
       });
+  }
+
+  uploadUserProfileImage(event) {
+
+    const image = event.target.files[0];
+    console.log(image);
+    this.userService.uploadUserProfileImage(image, localStorage.getItem('currentUserId')).subscribe(
+      response  => {console.log('Successfully uploaded image');
+        this.profileImageURL =
+          'http://localhost:52215/api/user/' + localStorage.getItem('currentUserId') + '/getimg?nocache=' + this.junk(); },
+      error =>  {console.error('Error uploading image'); }
+    );
+  }
+
+  junk() {
+    return (new Date()).getTime() + Math.round(Math.random());
+  }
+
+  backToProfile() {
+    this.route.navigate(['profile/' + localStorage.getItem('currentUserId')]);
   }
 }

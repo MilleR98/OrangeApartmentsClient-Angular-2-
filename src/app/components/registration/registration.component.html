@@ -6,7 +6,7 @@
         <i class="glyphicon glyphicon-remove"></i>
       </button>
       <h1>Create new account</h1><br>
-      <form name="form" (ngSubmit)="register(); registerForm.reset()" #registerForm="ngForm" novalidate>
+      <form name="form" (ngSubmit)="register();" #registerForm="ngForm" novalidate>
         <div class="form-group" >
           <input name="firstname" placeholder="First Name" class="form-control loginmodal-container-input"
                  [(ngModel)]="model.firstname" #firstname="ngModel" required pattern="[A-Za-z]{2,20}$"/>
