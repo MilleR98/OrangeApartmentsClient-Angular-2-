@@ -35,7 +35,7 @@ export class UserService {
 
   updateCurrentUser(id, user) {
     return this.http.put(this.config.apiUrl + '/api/account/change-info/' + id, user, this.Token()).
-    map((response: Response) => {response.json(); console.log(response); });
+    map((response: Response) => {response.json(); });
   }
 
   uploadUserProfileImage(image, id) {

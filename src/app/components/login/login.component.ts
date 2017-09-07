@@ -31,17 +31,6 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loading = true;
-    console.log(this.model);
-    const key = CryptoJS.enc.Base64.parse('HackersSeeIT2');
-    const iv  = CryptoJS.enc.Base64.parse('#base64IV#');
-    const encrypted = CryptoJS.AES.encrypt(this.model.password, key, {iv: iv});
-
-    const secureUsercreds = {
-      email: this.model.email,
-      password: encrypted.toString()
-    };
-
-    console.log(secureUsercreds);
     this.authenticationService.login(this.model)
       .subscribe(
         data => {

@@ -28,7 +28,6 @@ export class EditProfileComponent implements OnInit {
       'http://localhost:52215/api/user/' + localStorage.getItem('currentUserId') + '/getimg?nocache=' + this.junk();
     this.userService.getUserInfo(+localStorage.getItem('currentUserId')).subscribe((resp: Response) => {
       this.modelInfo = resp.json();
-      console.log(this.modelInfo);
     });
   }
 
@@ -52,7 +51,6 @@ export class EditProfileComponent implements OnInit {
     this.responseEmailChangeShow = false;
     this.responsePassChangeShow = true;
     this.responsePhotoChange = false;
-    console.log(this.modelPass);
     this.userService.changePassword(this.modelPass).subscribe(
       data => {
         this.alertService.success('Password successfully changed');
@@ -67,7 +65,6 @@ export class EditProfileComponent implements OnInit {
     this.responseEmailChangeShow = true;
     this.responsePassChangeShow = false;
     this.responsePhotoChange = false;
-    console.log(this.modelEmail);
     this.userService.changeEmail(this.modelEmail).subscribe(
       data => {
         this.alertService.success('Email successfully changed');
@@ -83,7 +80,6 @@ export class EditProfileComponent implements OnInit {
     this.responsePassChangeShow = false;
     this.responsePhotoChange = true;
     const image = event.target.files[0];
-    console.log(image);
     this.userService.uploadUserProfileImage(image, localStorage.getItem('currentUserId')).subscribe(
       response  => {this.alertService.success('Successfully change profile photo');
         this.profileImageURL =

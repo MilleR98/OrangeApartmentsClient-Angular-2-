@@ -12,7 +12,6 @@ import {User} from '../../models/user';
 
 export class HomeComponent implements OnInit {
   currentUserToken: string;
-  users: User[] = [];
 
   constructor(private userService: UserService) {
     this.currentUserToken = localStorage.getItem('currentUserToken');

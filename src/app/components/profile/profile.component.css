@@ -17,6 +17,17 @@ h3{
   object-fit: cover;
 }
 
+.col-image{
+  width: 27%!important;
+}
+
+.col-inputs{
+  width: 73%!important;
+}
+
+.col-cardlist{
+  width: 35.5%!important;
+}
 
 
 
