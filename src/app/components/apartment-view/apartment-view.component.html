@@ -1,7 +1,18 @@
 
 <!-- img -->
 <div class="col-md-4" style="min-width: 200px;">
-	<img src="http://localhost:52215/api/apartment/{{apartment.ApartmentId}}/img/{{imageIndex}}"
+
+      <!-- Previous image button -->
+      <button class="button-previous" (click)="previous()" *ngIf="hasPrevImage()">
+        <span class="glyphicon glyphicon-menu-left previousIcon_arrow" aria-hidden="true" ></span>
+      </button>
+      <!-- Next image button -->
+      <button class="button-next" (click)="next()" *ngIf="hasNextImage()">
+        <span class="glyphicon glyphicon-menu-right nextIcon_arrow" aria-hidden="true" ></span>
+      </button>
+
+
+	<img src="http://localhost:52215/api/apartment/{{id}}/img/{{imageIndex}}"
            style="width: 100%; height: 100%">
 </div>
 <div class="col-md-8">
@@ -11,8 +22,8 @@
 			<div class="col-sm-8"><h3>{{apartment.Title}}</h3></div>
 			<div class="col-sm-4"><h3>{{apartment.Rating}} <span class="glyphicon glyphicon-star" aria-hidden="true"></span></h3></div>
 			<div class="col-sm-12"><h4>{{apartment.City}}, {{apartment.District}}, {{apartment.Street}}, {{apartment.StreetNumber}}</h4></div>
-			<div class="col-sm-4"><h4>{{apartment.FloorNumber}} Floor</h4></div>
-			<div class="col-sm-4"><h4>{{apartment.BedroomCount}} Bedroom</h4></div>
+			<div class="col-sm-4"><h4>{{apartment.FloorNumber}} floor</h4></div>
+			<div class="col-sm-4"><h4>{{apartment.BedroomCount}} bedroom</h4></div>
 			<div class="col-sm-4"><h4>{{apartment.SleepingPlaces}} ppl.</h4></div>
 		</div>
 	</div>
@@ -21,34 +32,74 @@
 		<div class="panel-footer">Orendar Information</div>
 		<div class="panel-body">
 			<div class="col-sm-12"><h3>{{user.FirstName}} {{user.LastName}}</h3></div>
-			<div class="col-sm-12"><h4>{{user.Phone}}</h4></div>
-			<div class="col-sm-12"><h4>{{user.Mail}}</h4></div>
+			<div class="col-sm-12"><h4>Phone: {{user.Phone}}</h4></div>
+			<div class="col-sm-12"><h4>Mail : {{user.Mail}}</h4></div>
 		</div>
 	</div>
 </div>
 
 
 <div class="row">
-	<!-- img -->
-	<div class="col-md-6">
+	<!-- tags -->
+	<div class="col-md-6" *ngIf="this.tags.length > 0">
 		<div class="panel panel-common">
 			<div class="panel-footer">Apartment Tags</div>
-			<div class="panel-body">tags</div>
+			<div class="panel-body">
+
+				<div class="apartment-tag-list"
+					*ngFor="let tag of this.tags" style="display: inline-block; margin: 5px;">
+					<button class="btn btn-primary" style="border: 1px solid; max-width: 150px; padding: 5px;">
+						<span class="glyphicon glyphicon glyphicon-check" aria-hidden="true"></span>
+						{{tag.TagName}}
+					</button>
+				</div>
+
+			</div>
 		</div>
 	</div>
 
-	<div class="col-md-6">
+	<div class="col-md-6" *ngIf="apartment.Description.length > 0">
 		<div class="panel panel-common">
 			<div class="panel-footer">Apartment Description</div>
-			<div class="panel-body">Description</div>
+			<div class="panel-body">{{apartment.Description}}</div>
 		</div>
 	</div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="coments.length > 0">
 	<!-- img -->
 	<div class="panel panel-common col-md-12">
 		<div class="panel-footer">User Comments</div>
-		<div class="panel-body">Comments</div>
+		<div class="panel-body">
+			<div class="row">
+			<div class="form-group">
+				<label for="inputDescription" class="col-sm-2 control-label">
+					<button class="btn btn-primary" [disabled]="(coment.Comment == null || Coment.errors || coment.Comment == '')" 
+							(click)="this.addComment()">Add Coment</button>
+				</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" rows="4" maxlength="500"
+						[(ngModel)]="coment.Comment" name="Coment" pattern=".{5,500}"
+						#Coment="ngModel"></textarea>
+					<div *ngIf="Coment.errors && (Coment.dirty || Coment.touched)"
+						class="alert alert-danger">Comment should be 5 to 500 symbols long.
+					</div>
+				</div>
+			</div>
+</div>
+
+
+
+			<div class="apartment-coments" *ngFor="let coment of coments"
+				style="margin: 5px;">
+
+				<div class="panel panel-default">
+					<div class="panel-footer">{{coment.CommentDate}}</div>
+					<div class="panel-body">{{coment.Comment}}</div>
+				</div>
+
+			</div>
+
+		</div>
 	</div>
 </div>

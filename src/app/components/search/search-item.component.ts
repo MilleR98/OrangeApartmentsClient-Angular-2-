@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Apartment} from '../../models/apartment';
 import {SearchApartmentService} from '../../services/search-apartment.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-item',
@@ -16,7 +17,7 @@ export class SearchItemComponent implements OnInit  {
   imageIndex: number = 0;
   maxImageIndex: number = 0;
 
-  constructor(public _apartmentService: SearchApartmentService) {}
+  constructor(public _apartmentService: SearchApartmentService, private router: Router) {}
 
   ngOnInit() {
     this.maxImageIndex = this.getApartmentImageCount(this.apartment.ApartmentId);
@@ -83,4 +84,9 @@ export class SearchItemComponent implements OnInit  {
   hasNextImage(): boolean {
     return this.imageIndex < this.maxImageIndex - 1;
   }
+
+  openApartmentPage() {
+    this.router.navigate(['apartment/', this.apartment.ApartmentId]);
+  }
+
 }

@@ -10,6 +10,7 @@ import {User} from '../models/user';
 import {Apartment} from '../models/apartment';
 import {forEach} from '@angular/router/src/utils/collection';
 import {ApartmentTag} from '../models/apartment-tag';
+import { Router } from '@angular/router';
 import {isUndefined} from 'util';
 
 /*
@@ -22,6 +23,7 @@ import {isUndefined} from 'util';
 export class SearchApartmentService {
   private apiUrl = this.config.apiUrl + '/api/apartment';
   private tagListUrl = this.config.apiUrl + '/api/tag/getlist';
+  private addComentUrl = this.config.apiUrl + '/api/apartment/addComent';
   city: string;
   district: string;
   street: string;
@@ -113,9 +115,11 @@ export class SearchApartmentService {
   }
 
   searchApartmentById(id: number) {
-    return this.http.get(this.apiUrl + '/' + id)
+    return this.http.get(this.apiUrl + '/' + id + '/detailed')
       .map((resp: Response) => {
         if (resp.status === 200) {
+          return resp.json();
+        } else {
           return resp.json();
         }
       });
@@ -128,6 +132,13 @@ export class SearchApartmentService {
           return resp.json();
         }
       });
+  }
+
+  addApartmentComent(coment: string, apartID: number) {
+
+    return this.http.post(this.addComentUrl, {'Comment': coment, 'ApartmentId': apartID},
+                                              {headers: new Headers({ 'Token': localStorage.getItem('currentUserToken')})})
+                    .map((resp: Response) => resp);
   }
 
   /*

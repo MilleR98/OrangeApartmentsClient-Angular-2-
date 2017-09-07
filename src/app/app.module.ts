@@ -22,9 +22,9 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {FooterComponent} from './components/directives/footer.component';
 import {EditProfileComponent} from './components/edit_profile/edit_profile.component';
 import {EqualValidator} from './components/directives/equal-validator.directive';
-import { AddApartmentComponent } from './components/add-apartment/add-apartment.component';
-import { ApartmentCreationService } from './services/apartment-creation.service';
-import { ApartmentViewComponent } from './components/apartment-view/apartment-view.component';
+import {AddApartmentComponent} from './components/add-apartment/add-apartment.component';
+import {ApartmentCreationService} from './services/apartment-creation.service';
+import {ApartmentViewComponent} from './components/apartment-view/apartment-view.component';
 
 
 @NgModule({
@@ -59,9 +59,9 @@ import { ApartmentViewComponent } from './components/apartment-view/apartment-vi
     UserService,
     SearchApartmentService,
     ApartmentCreationService,
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
 
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
