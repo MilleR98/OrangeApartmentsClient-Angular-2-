@@ -3,7 +3,7 @@ export class Apartment {
   City: string;
   District: string;
   Street: string;
-  StreetNumber: number;
+  StreetNumber: string;
   FloorNumber: number;
   SleepingPlaces: number;
   BedroomCount: number;

@@ -1,18 +1,15 @@
-  <div class="navbar navbar-default navbar-fixed-top">
+  <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" routerLink="">
           <i class="glyphicon glyphicon-home"></i> Orange Apartments</a>
       </div>
       <ul class="nav navbar-nav" routerLinkActive="active">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="">Home</a>
-        </li>
 		<li class="nav-item">
 		  <a class="nav-link" routerLink="/search">Search</a>
 		</li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="">CreateRent</a>
+          <a class="nav-link" routerLink="addapartment">CreateRent</a>
         </li>
       </ul>
 
@@ -24,7 +21,7 @@
           <li *ngIf="!isLoggedIn()" class="nav-item">
             <a class="nav-link" routerLink="registration" data-toggle="modal" data-target="#registration-modal">Sign up</a></li>
           <li *ngIf="isLoggedIn()" class="nav-item">
-            <a class="nav-link" routerLink="rent">MyBooking</a></li>
+            <a class="nav-link hidden-xs hidden-sm" routerLink="rent">MyBooking</a></li>
           <li *ngIf="isLoggedIn()" class="nav-item">
             <a class="nav-link" routerLink="messages">
               <span class="glyphicon glyphicon-envelope"></span>
@@ -58,7 +55,7 @@
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
-  </div>
+  </nav>
   <app-login></app-login>
   <app-registration></app-registration>
 

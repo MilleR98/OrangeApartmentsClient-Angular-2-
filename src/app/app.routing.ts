@@ -5,8 +5,9 @@ import {RegistrationComponent} from './components/registration/registration.comp
 import {SearchComponent} from './components/search/search.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {EditProfileComponent} from './components/edit_profile/edit_profile.component';
-import {AuthGuard} from "./guards/auth.guard";
-
+import {AuthGuard} from './guards/auth.guard';
+import {AddApartmentComponent} from './components/add-apartment/add-apartment.component';
+import { ApartmentViewComponent } from './components/apartment-view/apartment-view.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -15,6 +16,8 @@ const appRoutes: Routes = [
   { path: 'search', component: SearchComponent},
   { path: 'profile/:id', component: ProfileComponent},
   { path: 'profile/:id/edit', component: EditProfileComponent, canActivate: [AuthGuard]},
+  { path: 'addapartment', component: AddApartmentComponent, canActivate: [AuthGuard]},
+  { path: 'apartment/:id', component: ApartmentViewComponent},
 
   { path: '**', redirectTo: 'home' }
 ];

@@ -1,3 +1,4 @@
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
@@ -21,7 +22,9 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {FooterComponent} from './components/directives/footer.component';
 import {EditProfileComponent} from './components/edit_profile/edit_profile.component';
 import {EqualValidator} from './components/directives/equal-validator.directive';
-import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import { AddApartmentComponent } from './components/add-apartment/add-apartment.component';
+import { ApartmentCreationService } from './services/apartment-creation.service';
+import { ApartmentViewComponent } from './components/apartment-view/apartment-view.component';
 
 
 @NgModule({
@@ -37,7 +40,9 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
     ProfileComponent,
     FooterComponent,
     EditProfileComponent,
-    EqualValidator
+    EqualValidator,
+    AddApartmentComponent,
+    ApartmentViewComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +58,7 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
     AlertService,
     UserService,
     SearchApartmentService,
+    ApartmentCreationService,
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
 

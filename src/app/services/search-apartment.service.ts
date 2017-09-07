@@ -112,6 +112,24 @@ export class SearchApartmentService {
       });
   }
 
+  searchApartmentById(id: number) {
+    return this.http.get(this.apiUrl + '/' + id)
+      .map((resp: Response) => {
+        if (resp.status === 200) {
+          return resp.json();
+        }
+      });
+  }
+
+  getUserInfol(user: number) {
+    return this.http.get(this.config.apiUrl + '/api/user/' + user)
+      .map((resp: Response) => {
+        if (resp.status === 200) {
+          return resp.json();
+        }
+      });
+  }
+
   /*
    * Gets all tags available in db
    *

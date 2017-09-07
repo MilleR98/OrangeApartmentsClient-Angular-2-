@@ -47,7 +47,7 @@ export class UserService {
   }
 
 
-  private Token() {
+  public Token() {
     const currentUser = localStorage.getItem('currentUserToken');
     if (currentUser) {
       const headers = new Headers({ 'Token': currentUser});
