@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   model: any = {};
   loading = false;
   returnUrl: string;
+  isSuccess: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.isSuccess = true;
   }
 
   login() {
@@ -43,12 +45,14 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.model)
       .subscribe(
         data => {
+          this.isSuccess = true;
           this.router.navigate([this.returnUrl]);
           $('#login-modal').modal('hide');
         },
         error => {
-          this.alertService.error(error._body);
+          this.alertService.error(error._body, false);
           this.loading = false;
+          this.isSuccess = false;
         });
   }
 }

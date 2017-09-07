@@ -20,6 +20,7 @@ export class EditProfileComponent implements OnInit {
   responseInfoChangeShow: boolean;
   responseEmailChangeShow: boolean;
   responsePassChangeShow: boolean;
+  responsePhotoChange: boolean;
   constructor(private userService: UserService, private alertService: AlertService, private route: Router) {}
 
   ngOnInit(): void {
@@ -35,6 +36,7 @@ export class EditProfileComponent implements OnInit {
     this.responseInfoChangeShow = true;
     this.responseEmailChangeShow = false;
     this.responsePassChangeShow = false;
+    this.responsePhotoChange = false;
     console.log(this.modelInfo);
     this.userService.updateCurrentUser(+localStorage.getItem('currentUserId'), this.modelInfo).subscribe(
       data => {
@@ -49,6 +51,7 @@ export class EditProfileComponent implements OnInit {
     this.responseInfoChangeShow = false;
     this.responseEmailChangeShow = false;
     this.responsePassChangeShow = true;
+    this.responsePhotoChange = false;
     console.log(this.modelPass);
     this.userService.changePassword(this.modelPass).subscribe(
       data => {
@@ -63,6 +66,7 @@ export class EditProfileComponent implements OnInit {
     this.responseInfoChangeShow = false;
     this.responseEmailChangeShow = true;
     this.responsePassChangeShow = false;
+    this.responsePhotoChange = false;
     console.log(this.modelEmail);
     this.userService.changeEmail(this.modelEmail).subscribe(
       data => {
@@ -74,14 +78,17 @@ export class EditProfileComponent implements OnInit {
   }
 
   uploadUserProfileImage(event) {
-
+    this.responseInfoChangeShow = false;
+    this.responseEmailChangeShow = false;
+    this.responsePassChangeShow = false;
+    this.responsePhotoChange = true;
     const image = event.target.files[0];
     console.log(image);
     this.userService.uploadUserProfileImage(image, localStorage.getItem('currentUserId')).subscribe(
-      response  => {console.log('Successfully uploaded image');
+      response  => {this.alertService.success('Successfully change profile photo');
         this.profileImageURL =
           'http://localhost:52215/api/user/' + localStorage.getItem('currentUserId') + '/getimg?nocache=' + this.junk(); },
-      error =>  {console.error('Error uploading image'); }
+      error =>  {this.alertService.error(error._body); }
     );
   }
 

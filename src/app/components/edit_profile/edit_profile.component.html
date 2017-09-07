@@ -6,10 +6,16 @@
     <!-- picture column -->
     <div class="col-md-4 col-sm-6 col-xs-12">
       <div class="text-center">
-        <img id="user-img" src="{{profileImageURL}}" class="crop avatar img-circle img-thumbnail" alt="avatar">
+        <img id="user-image" src="{{profileImageURL}}" class="crop avatar img-circle img-thumbnail" alt="avatar">
         <h6>Upload a different photo...</h6>
-        <input (change)="uploadUserProfileImage($event)" accept="image/jpeg,image/png,image/gif,image/jpg"
-               type="file" class="text-center center-block well well-sm">
+        <div class="upload-btn-wrapper">
+          <button type="button" id="btnup" class="btn btn-primary">Browse for your photo!</button>
+          <input id="image-upload" (change)="uploadUserProfileImage($event)" accept="image/jpeg,image/png,image/gif,image/jpg"
+                 type="file" class="text-center center-block well well-sm">
+        </div>
+      </div>
+      <div *ngIf="responsePhotoChange">
+        <app-alert></app-alert>
       </div>
     </div>
     <!-- edit personal info form column -->
