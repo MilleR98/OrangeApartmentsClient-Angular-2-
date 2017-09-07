@@ -26,6 +26,8 @@ import {EqualValidator} from './components/directives/equal-validator.directive'
 import {AddApartmentComponent} from './components/add-apartment/add-apartment.component';
 import {ApartmentCreationService} from './services/apartment-creation.service';
 import {ApartmentViewComponent} from './components/apartment-view/apartment-view.component';
+import {MapComponent} from './components/map/map.component';
+import {AgmCoreModule} from '@agm/core';
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import {ApartmentViewComponent} from './components/apartment-view/apartment-view
     EditProfileComponent,
     EqualValidator,
     AddApartmentComponent,
-    ApartmentViewComponent
+    ApartmentViewComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,10 @@ import {ApartmentViewComponent} from './components/apartment-view/apartment-view
     HttpModule,
     FormsModule,
     ImageUploadModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDFhd2I4LhTwtcctL6T8QCiR8eGurjqRek'
+    })
   ],
   providers: [
     AuthService,

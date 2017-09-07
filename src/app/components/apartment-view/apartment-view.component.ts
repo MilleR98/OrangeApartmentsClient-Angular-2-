@@ -24,7 +24,7 @@ export class ApartmentViewComponent implements OnInit {
   imageIndex: number;
   imageCount: number;
 
-  constructor(private _route: ActivatedRoute, private _apartmentService: SearchApartmentService,  private _router: Router) { 
+  constructor(private _route: ActivatedRoute, private _apartmentService: SearchApartmentService,  private _router: Router) {
     this.coment = new ApartmentComent();
     this.tags = [];
     this.coments = [];
@@ -57,7 +57,7 @@ export class ApartmentViewComponent implements OnInit {
     this._apartmentService.addApartmentComent(this.coment.Comment, this.id)
       .subscribe(data => {
         if (data.status === 200) {
-          let apart = new ApartmentComent();
+          const apart = new ApartmentComent();
           apart.Comment = this.coment.Comment;
           apart.CommentDate = data.json().CommentDate;
           this.coments.push(apart);
