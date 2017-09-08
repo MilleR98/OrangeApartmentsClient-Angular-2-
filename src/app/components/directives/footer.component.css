@@ -10,8 +10,10 @@
 .footer {
   background: #EDEFF1;
   height: auto;
-  padding-bottom: 30px;
-  position: relative;
+  padding-bottom: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
   width: 100%;
   border-bottom: 1px solid #CCCCCC;
   border-top: 1px solid #DDDDDD;
@@ -28,7 +30,7 @@
   font-size: 18px;
   font-weight: 600;
   line-height: 27px;
-  padding: 40px 0 10px;
+  padding: 3px 0 10px;
   text-transform: uppercase;
 }
 .footer ul {
@@ -128,8 +130,8 @@ button:hover{
 .footer-bottom {
   background: #E3E3E3;
   border-top: 1px solid #DDDDDD;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .footer-bottom p.pull-left {
   padding-top: 6px;
