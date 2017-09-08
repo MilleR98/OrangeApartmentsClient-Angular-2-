@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import {AlertService} from '../../services/alert.service';
 declare let $: any;
-import * as CryptoJS from 'crypto-js';
 
 @Component({
   moduleId: module.id,

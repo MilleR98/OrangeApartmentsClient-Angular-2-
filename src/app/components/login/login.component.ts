@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {AlertService} from '../../services/alert.service';
 import {AuthService} from '../../services/auth.service';
 declare let $: any;
-import * as CryptoJS from 'crypto-js';
 
 @Component({
   moduleId: module.id,
