@@ -46,6 +46,10 @@ export class UserService {
         .catch(error => Observable.throw(error));
   }
 
+  getAllUsersApartment(userId): Observable<any> {
+    return this.http.get(this.config.apiUrl + '/api/user/' + userId + '/apartments').map(response => response.json());
+  }
+
 
   private Token() {
     const currentUser = localStorage.getItem('currentUserToken');

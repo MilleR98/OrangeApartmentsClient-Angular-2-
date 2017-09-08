@@ -21,7 +21,11 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {FooterComponent} from './components/directives/footer.component';
 import {EditProfileComponent} from './components/edit_profile/edit_profile.component';
 import {EqualValidator} from './components/directives/equal-validator.directive';
-import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {VirtualScrollModule} from 'angular2-virtual-scroll';
+import {VirtualScrollComponent} from './components/scroll-view/scroll.component';
+import {CommentComponent} from './components/comment/comment.component';
+import {CommentService} from './services/comment.service';
 
 
 @NgModule({
@@ -37,14 +41,17 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
     ProfileComponent,
     FooterComponent,
     EditProfileComponent,
-    EqualValidator
+    EqualValidator,
+    VirtualScrollComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
     routing,
     HttpModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    VirtualScrollModule
   ],
   providers: [
     AuthService,
@@ -53,6 +60,7 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
     AlertService,
     UserService,
     SearchApartmentService,
+    CommentService,
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
 

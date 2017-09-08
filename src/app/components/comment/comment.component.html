@@ -1,0 +1,19 @@
+<div class="">
+  <div class="panel panel-white post panel-shadow">
+    <div class="post-heading">
+      <div class="pull-left image">
+        <img src="http://localhost:52215/api/user/{{comment.CommentatorId}}/getimg" class="img-circle avatar" alt="image">
+      </div>
+      <div class="pull-left meta">
+        <div class="title h5">
+          <a href="#"><b>{{commentatorName}}</b></a>
+          made a post.
+        </div>
+        <h6 class="text-muted time">{{comment.CommentDate.substring(0,10)}}</h6>
+      </div>
+    </div>
+    <div class="post-description">
+      <pre>{{comment.Comment}}</pre>
+    </div>
+  </div>
+</div>
