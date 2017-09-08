@@ -1,6 +1,6 @@
 textarea{
-  resize: vertical;
-}
+   resize: none;
+ }
 
 .glyphicon {
   top: 3px;

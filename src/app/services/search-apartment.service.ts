@@ -67,9 +67,9 @@ export class SearchApartmentService {
 
   /*
    * Sends request to web api to gain search data
-   * 
+   *
    * Responsible for: creating URL and storing search data.
-   * 
+   *
    */
   searchApartments(): Observable<void> {
     if (this.isLastPage) {
@@ -79,7 +79,7 @@ export class SearchApartmentService {
     let apiQuery: string;
     apiQuery = '';
 
-    let queryTags: string = this.getSelectedTagsUrl();
+    const queryTags: string = this.getSelectedTagsUrl();
     if (queryTags.length > 0) {
       apiQuery += '?tags=' + queryTags;
     }
@@ -102,11 +102,11 @@ export class SearchApartmentService {
           aparts.length === 0 ? this.isLastPage = true : this.isLastPage = false;
 
           if (this.page > 0) {
-            for (let ap in aparts) {
+            for (const ap in aparts) {
               this.apartmentList.push(aparts[ap]);
             }
           } else {
-            for (let ap in aparts) {
+            for (const ap in aparts) {
               this.apartmentList.push(aparts[ap]);
             }
           }
@@ -162,8 +162,8 @@ export class SearchApartmentService {
    * to request url.
    */
   getSelectedTagsUrl(): string {
-    let result: string = '';
-    for (let item of this.tagList) {
+    let result = '';
+    for (const item of this.tagList) {
       if (item.isSelected === true) {
         if (result === '') {
           result = item.tagname;

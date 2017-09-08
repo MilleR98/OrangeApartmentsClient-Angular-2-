@@ -14,8 +14,8 @@ import { Router } from '@angular/router';
  */
 export class SearchItemComponent implements OnInit  {
   @Input() apartment: Apartment;
-  imageIndex: number = 0;
-  maxImageIndex: number = 0;
+  imageIndex = 0;
+  maxImageIndex = 0;
 
   constructor(public _apartmentService: SearchApartmentService, private router: Router) {}
 

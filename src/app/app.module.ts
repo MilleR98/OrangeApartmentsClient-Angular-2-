@@ -28,6 +28,12 @@ import {ApartmentCreationService} from './services/apartment-creation.service';
 import {ApartmentViewComponent} from './components/apartment-view/apartment-view.component';
 import {MapComponent} from './components/map/map.component';
 import {AgmCoreModule} from '@agm/core';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {VirtualScrollModule} from 'angular2-virtual-scroll';
+import {VirtualScrollComponent} from './components/scroll-view/scroll.component';
+import {CommentComponent} from './components/comment/comment.component';
+import {CommentService} from './services/comment.service';
+
 
 
 @NgModule({
@@ -46,7 +52,9 @@ import {AgmCoreModule} from '@agm/core';
     EqualValidator,
     AddApartmentComponent,
     ApartmentViewComponent,
-    MapComponent
+    MapComponent,
+    VirtualScrollComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +65,8 @@ import {AgmCoreModule} from '@agm/core';
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDFhd2I4LhTwtcctL6T8QCiR8eGurjqRek'
-    })
+    }),
+    VirtualScrollModule
   ],
   providers: [
     AuthService,
@@ -68,6 +77,8 @@ import {AgmCoreModule} from '@agm/core';
     SearchApartmentService,
     ApartmentCreationService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
+    CommentService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
 
   bootstrap: [AppComponent]

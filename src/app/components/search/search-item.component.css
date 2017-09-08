@@ -10,6 +10,13 @@
   min-height: 100%;
 }
 
+.panel-shadow {
+  box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
+}
+.panel-white {
+  border: 1px solid #dddddd;
+}
+
 .button-previous {
   cursor: pointer;
   display: block;

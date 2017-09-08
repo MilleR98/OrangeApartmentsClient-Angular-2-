@@ -26,8 +26,23 @@ h3{
 }
 
 .col-cardlist{
-  width: 35.5%!important;
+  width: 35%!important;
 }
 
+.panel-shadow {
+  box-shadow: rgba(0, 0, 0, 0.3) 5px 5px 5px;
+}
 
+p{
+  word-wrap: break-word;
+}
 
+textarea{
+  resize: none;
+}
+
+input[type=button]{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
