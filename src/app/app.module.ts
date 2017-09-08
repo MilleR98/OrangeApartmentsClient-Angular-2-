@@ -54,7 +54,9 @@ import {CommentService} from './services/comment.service';
     ApartmentViewComponent,
     MapComponent,
     VirtualScrollComponent,
-    CommentComponent
+    CommentComponent,
+    MapComponent
+
   ],
   imports: [
     BrowserModule,
